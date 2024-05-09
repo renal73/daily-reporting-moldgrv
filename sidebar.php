@@ -49,7 +49,7 @@
           <li class="nav-item">
                 <a href="./index.php?page=task_list" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
-                  <p>Task</p>
+                  <p>Pekerjaan</p>
                 </a>
           </li>
           <?php if($_SESSION['login_type'] != 3): ?>

@@ -8,6 +8,7 @@
 <script src="assets/plugins/select2/js/select2.full.min.js"></script>
 <!-- Summernote -->
 <script src="assets/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="assets/plugins/summernote/summernote-image-list.min.js"></script>
 <!-- dropzonejs -->
 <script src="assets/plugins/dropzone/min/dropzone.min.js"></script>
 <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
@@ -101,6 +102,9 @@ $(function () {
   bsCustomFileInput.init();
 
     $('.summernote').summernote({
+		onImageUpload: function(files, editor, welEditable) {
+      sendFile(files[0],editor,welEditable);
+		},
         height: 300,
         toolbar: [
             [ 'style', [ 'style' ] ],
@@ -110,9 +114,30 @@ $(function () {
             [ 'color', [ 'color' ] ],
             [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
             [ 'table', [ 'table' ] ],
+			["insert", ["link", "picture", "imageList", "video", "hr"]],
             [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
         ]
     })
+
+	function uploadImage(image) {
+    var data = new FormData();
+    data.append("image", image);
+    $.ajax({
+        url: 'images.php',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: "post",
+        success: function(url) {
+            var image = $('<img>').attr('src', 'http://' + url);
+            $('#summernote').summernote("insertNode", image[0]);
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+}
 
      $('.datetimepicker').datetimepicker({
 		  format:'Y/m/d H:i',

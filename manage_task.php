@@ -46,6 +46,7 @@ if(isset($_GET['id'])){
             [ 'color', [ 'color' ] ],
             [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
             [ 'table', [ 'table' ] ],
+			["insert", ["link", "picture", "imageList", "video", "hr"]],
             [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
         ]
     })
